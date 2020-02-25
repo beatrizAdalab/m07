@@ -8,10 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 const CardClassified = ({ classified }) => {
-
-
     return (
-
         <LoginConsumer>
             {(value) => {
 
@@ -19,11 +16,7 @@ const CardClassified = ({ classified }) => {
                     className='col-6 col-md-4 col-lg-3 mb-5'>
                     <div className='card shadow bg-white rounded'>
                         <Link
-                            to={{
-                                pathname: `/detailClassifieds/${classified._id}`,
-                                classified: classified
-                            }}
-                            //onClick={() => { value.detailClassified(classified._id) }}
+                            to={`/detailClassifieds/${classified._id}`}
                             key={classified.id}
                             className='text-decoration-none text-body'
                         >

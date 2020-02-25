@@ -23,7 +23,7 @@ class App extends Component {
               <Switch>
                 <Route path='/login' component={Login} />
                 <Route path='/register' component={Register} />
-                <Route path='/listClassifieds/' component={ListClassifieds} />
+                <Route path='/listClassifieds/:queries' component={ListClassifieds} />
                 <Route path='/detailClassifieds/:id' component={DetailClassifieds} />
                 <Route path='/newClassified' component={NewClassified} />
                 <Redirect to='/login' />

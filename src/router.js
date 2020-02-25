@@ -15,11 +15,11 @@ export const urlRouter = {
             .split('&')
             .filter(param => param)
             .map(param => param.split('='))
-            .reduce( (accumulator, param) => {     
+            .reduce((accumulator, param) => {
                 accumulator[param[0]] = param[1]
                 return accumulator
-            }, {}) 
-        },
+            }, {})
+    },
 
     extractParamsUrlSearch: (search) => {
         let keys = ['name', 'price', 'venta', 'tag']
@@ -30,23 +30,27 @@ export const urlRouter = {
                 accumulator[key] = search[key]
             }
             return accumulator
-        } , {})
+        }, {})
     },
 
-    getParamsSearchApi: (paramsUrl) => {
-        console.log(paramsUrl)
-        const name = paramsUrl.name ? paramsUrl.name : ''
-        const venta = paramsUrl.venta ? paramsUrl.venta : ''
-        const tag = paramsUrl.tag ? paramsUrl.tag : ''
-        const price = paramsUrl.price ? `0-${paramsUrl.price}` : ''
 
-        const params = {
-            name,
-            venta,
-            tag,
-            price
-        }
-        return params
-    }
+    buildObjectFilter: (search) => {
 
+        let keys = ['name', 'price', 'venta', 'tag']
+
+        const ObjectKey = keys.reduce((accumulator, key) => {
+
+            if (search.hasOwnProperty(key)) {
+                accumulator[key] = search[key]
+            } else {
+                accumulator[key] = ''
+            }
+            return accumulator
+        }, {})
+
+        const price = ObjectKey.price.slice(2)
+        ObjectKey.price = price
+
+        return ObjectKey
+    },
 }

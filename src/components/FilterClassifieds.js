@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 const initialParams = {
-    name: '',
+    name: 'hijo',
     price: '',
     venta: '',
     tag: '',
@@ -17,67 +17,14 @@ class FilterClassifieds extends Component {
     constructor(props) {
         super(props);
         this.state = {
-       ...initialParams
+            ...initialParams
         };
     }
 
-    // componentDidUpdate(prevProps) {
-    //     if (this.props !== prevProps) {
-    //         const params = this.props.paramsFilter.params
-    //         this.setState({
-    //             ...params
-    //         })
-    //     }
-    // }
 
     render() {
-        console.log(this.state, 'state')
-    
-
-        const { getRedirect, tags, paramsFilter } = this.props
-        const { name, price,venta, tag } = this.props.paramsFilter
-        console.log(paramsFilter, 'propos filters')
-
-   
-        const handleChange = param => (e) => {
-            const element = e.currentTarget
-            this.setState({
-         
-                           [element.name]: element.value
-                        })
-        }
-
-    
-
-        //const handleChange = param => (e) => {
-        //    const element = e.currentTarget
-        //     const data = this.state.params
-
-        //     if (param === 'maxPrice') {
-        //         this.setState({
-        //             ...data,
-        //             price: `0-${element.value}`
-        //         })
-        //     } else {
-        //         this.setState({
-        //             ...data,
-        //             [element.name]: element.value
-        //         })
-        //     }
-        // }
-
-
-        // const searchClick = async (e) => {
-        //     e.preventDefault()
-        //     console.log(this.state)
-        //     //getRedirect(this.state)
-        // }
-
-        // const clearForm = () => {
-        //     this.setState({
-        //         ...initialParams
-        //     })
-        // }
+        const { handleChange, tags, numClassifieds } = this.props
+        const { name, price, venta, tag } = this.props.paramsFilter
 
         return (
             <LoginConsumer>
@@ -92,15 +39,15 @@ class FilterClassifieds extends Component {
 
                                 <form
                                     className='w-100 pl-2'
-                                    //onSubmit={searchClick}
-                                    >
+                                //onSubmit={searchClick}
+                                >
                                     <div className='input-group'>
                                         <input type='text'
                                             className='form-control'
                                             name='name' id='name'
                                             value={name}
-                                            onChange={handleChange()} 
-                                            />
+                                            onChange={handleChange}
+                                        />
                                         <div className='input-group-append'>
                                             <button className='btn btn-outline-secondary' type='submit'>  <FontAwesomeIcon icon={faSearch} /> </button>
                                         </div>
@@ -113,7 +60,7 @@ class FilterClassifieds extends Component {
                                     <div className='modal-content'>
 
                                         <div className='modal-header'>
-                                            <h5 className='modal-title' id='modalFiltersTitle'>Filters <small className='text-primary pl-5'>  classifieds </small>  </h5>
+                                            <h5 className='modal-title' id='modalFiltersTitle'>Filters <small className='text-primary pl-5'>  {numClassifieds} classifieds </small>  </h5>
                                             <button type='button' className='close' data-dismiss='modal' aria-label='Close'>
                                                 <span aria-hidden='true'>&times;</span>
                                             </button>
@@ -122,24 +69,24 @@ class FilterClassifieds extends Component {
                                         <div className='modal-body'>
                                             <form
                                                 className='pr-4 pl-4'
-                                                //onSubmit={searchClick}
-                                                >
+                                            //onSubmit={searchClick}
+                                            >
                                                 <div className='form-group p-0'>
                                                     <label htmlFor='name'>What are you searching?</label>
                                                     <input type='text'
                                                         className='form-control'
                                                         name='name' id='name'
                                                         value={name}
-                                                        onChange={handleChange()} 
-                                                        />
+                                                        onChange={handleChange}
+                                                    />
                                                 </div>
 
                                                 <div className='form-group p-0'>
                                                     <select className='custom-select'
                                                         name='tag'
                                                         value={tag}
-                                                        onChange={handleChange()}
-                                                       >
+                                                        onChange={handleChange}
+                                                    >
                                                         <option value={''}>All tags</option>
                                                         {
 
@@ -153,14 +100,15 @@ class FilterClassifieds extends Component {
                                                 </div>
 
                                                 <div className='form-group p-0'>
-                                                    <label htmlFor='max-price'>Maximum price: </label>
+                                                    <label htmlFor='price'>Maximum price: </label>
                                                     <input
-                                                        name='max-price'
+                                                        disabled
+                                                        name='price'
                                                         type='number'
                                                         className='form-control'
                                                         value={price}
-                                                        id='max-price'
-                                                        onChange={handleChange('maxPrice')}
+                                                        id='price'
+                                                        onChange={handleChange}
                                                     />
                                                 </div>
 
@@ -172,7 +120,7 @@ class FilterClassifieds extends Component {
                                                             name='venta'
                                                             value={true}
                                                             className='custom-control-input'
-                                                            onChange={handleChange()}
+                                                            onChange={handleChange}
                                                         />
                                                         <label className='custom-control-label' htmlFor='buy'>I want to buy</label>
                                                     </div>
@@ -184,18 +132,18 @@ class FilterClassifieds extends Component {
                                                             name='venta'
                                                             value={false}
                                                             className='custom-control-input'
-                                                            onChange={handleChange()}
+                                                            onChange={handleChange}
                                                         />
                                                         <label className='custom-control-label' htmlFor='sell'>I want to sell</label>
                                                     </div>
                                                 </div>
 
                                                 <div className='form-group d-flex justify-content-center  py-3'>
-                                                    <button
-                                                        //onClick={clearForm}
+                                                    {/* <button
+                                                        onClick={clearForm}
                                                         className='btn btn-danger rounded mx-2'>
                                                         Clear
-                                                    </button>
+                                                    </button> */}
                                                     <button
                                                         type='submit'
                                                         className='btn btn-primary rounded mx-2'>

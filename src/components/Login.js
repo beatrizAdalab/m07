@@ -10,7 +10,7 @@ function Login() {
 
     const renderRedirect = () => {
         if (redirect) {
-            return <Redirect to={`/listClassifieds/:all`} />
+            return <Redirect to={`/listClassifieds/:?all`} />
         }
     }
 

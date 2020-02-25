@@ -22,92 +22,77 @@ class ListClassifieds extends Component {
                 price: '',
                 venta: '',
                 tag: ''
-            }
+            },
+            redirect: false
         };
     }
 
     componentDidMount() {
-        const url = this.props.location.search;
+        const url = this.props.location.search
         const paramsUrl = urlRouter.searchStringToObject(url)
         const paramsApi = urlRouter.extractParamsUrlSearch(paramsUrl)
+        const objectFilter = urlRouter.buildObjectFilter(paramsApi)
         this.getStore(paramsApi)
-        this.getParamsFilter(paramsApi)
+        this.getParamsFilter(objectFilter)
     }
 
     getStore = async (paramsApi) => {
-        const store = this.state.store
-        const paramsFilter = this.state.paramsFilter
         this.setState({
-            ...paramsFilter,
             store: {
                 classifieds: await api.getClassifieds(paramsApi),
                 tags: await api.getTags(),
+                loaded: false
             }
-        }, ()=>console.log(this.state))
+        })
     }
 
-
-    getParamsFilter = (paramsApi) => {
-        const store = this.state.store
-        const paramsFilter = this.state.paramsFilter
+    getParamsFilter = (paramsSearch) => {
         this.setState({
-            ...store,
-            paramsFilter:{
-                ...paramsApi
-            },
-         }, ()=>console.log(this.state))
+            paramsFilter: {
+                ...paramsSearch
+            }
+        })
     }
 
-    // handleChange = (e) => {
-    //     const element = e.currentTarget
-    //     const data = this.state
-    //     this.setState({
-    //          ...data,
-    //         paramsFilter:{[element.name]: element.value}
-    //     },()=>console.log(this.state))
-    // }
+    handleChange = (e) => {
+        const element = e.currentTarget
+        const data = this.state.paramsFilter
 
-    // renderRedirect = () => {
-    //     if (this.state.redirect) {
-    //         console.log(this.state.paramsFilter.params, 'hshsh')
-    //         const queries = urlRouter.buildURLSearch(this.state.paramsFilter)
+        this.setState({
+            paramsFilter: { ...data, [element.name]: element.value }
+        })
 
-    //         return <Redirect to={`/listClassifieds/:${queries}`} />
-    //     }
-    // }
-
-    // getRedirect = (params) => {
-    //     const data = this.state
-    //     this.setState({
-    //         ...data,
-    //         paramsFilter: params,
-    //     }, () => { this.getStore(this.state.paramsFilter) })
-    // }
-
+    }
 
     render() {
+
         const { classifieds, tags, loaded } = this.state.store
         return (
             <LoginConsumer>
                 {(value) => {
 
                     return (
-
-                        < div className='' >
-                    
-                          {/* {this.renderRedirect()} */}
-                            <div className='d-flex flex-column pb-3'> 
-                                 {/* <FilterClassifieds tags={tags} paramsFilter={this.state.paramsFilter} handleChange={this.handleChange} />  */}
+                        < div className=''>
+                            <div className='d-flex flex-column pb-3'>
+                                <FilterClassifieds
+                                    tags={tags}
+                                    numClassifieds={classifieds.length}
+                                    paramsFilter={this.state.paramsFilter}
+                                    clearForm={this.clearForm}
+                                    handleChange={this.handleChange}
+                                />
                                 <Link to='/newClassified'>
                                     <button type="button" className="btn btn-outline-success w-100 ">New classified</button>
-                                </Link> 
+                                </Link>
                             </div>
 
                             {classifieds.length > 0 ?
                                 <div className='container-classifieds pt-4'>
                                     <div className='row'>
                                         {classifieds.map(item => (
-                                            <CardClassified classified={item} key={item._id} />
+                                            <CardClassified
+                                                classified={item}
+                                                key={item._id} />
                                         ))}
                                     </div>
                                 </div>

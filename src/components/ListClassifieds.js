@@ -43,33 +43,39 @@ class ListClassifieds extends Component {
             },
             paramsFilter: {
                 params
-            }
+            },
+            redirect: true
         }, () => (console.log(this.state)))
     }
 
     renderRedirect = () => {
         if (this.state.redirect) {
-            const queries = urlRouter.buildURLSearch(this.state.params)
+            console.log(this.state.paramsFilter.params, 'hshsh')
+            const queries = urlRouter.buildURLSearch(this.state.paramsFilter)
+
             return <Redirect to={`/listClassifieds/:${queries}`} />
         }
     }
 
-    getRedirect(params) {
-        const dataState = this.state
-        console.log(dataState, 'hshsh')
+    getRedirect = (params) => {
+        const data = this.state
+        this.setState({
+            ...data,
+            paramsFilter: params,
+        }, () => { this.getStore(this.state.paramsFilter) })
     }
 
 
     render() {
-        console.log(this.state, 'hsssssshsh')
-
         const { classifieds, tags, loaded } = this.state.store
         return (
             <LoginConsumer>
                 {(value) => {
-                    { this.renderRedirect() }
+
                     return (
+
                         < div className='' >
+                            {this.renderRedirect()}
                             <div className='d-flex flex-column pb-3'>
                                 <FilterClassifieds tags={tags} paramsFilter={this.state.paramsFilter} getRedirect={this.getRedirect} />
                                 {/* <Link to='/newClassified'>

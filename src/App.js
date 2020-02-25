@@ -1,26 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import Login from './components/Login';
+import Register from './components/Register';
+import Header from './components/Header'
+import LoginContext from './context/LoginContext'
+import ListClassifieds from './components/ListClassifieds';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+
+class App extends Component {
+
+  render() {
+    return (
+      <Router>
+        <LoginContext>
+          <div className='App bg-light'>
+            <Header />
+            <main className='container'>
+              <Switch>
+                <Route path='/login' component={Login} />
+                <Route path='/register' component={Register} />
+                <Route path='/listClassifieds/:queries' component={ListClassifieds} />
+                <Redirect to='/login' />
+              </Switch>
+            </main>
+          </div>
+        </LoginContext>
+      </Router>
+    );
+  }
 }
 
 export default App;
+

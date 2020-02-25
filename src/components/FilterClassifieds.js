@@ -17,54 +17,67 @@ class FilterClassifieds extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: '',
-            price: '',
-            venta: '',
-            tag: '',
+       ...initialParams
         };
     }
 
-    componentDidUpdate(prevProps) {
-        if (this.props !== prevProps) {
-            const params = this.props.paramsFilter.params
-            this.setState({
-                ...params
-            })
-        }
-    }
-
+    // componentDidUpdate(prevProps) {
+    //     if (this.props !== prevProps) {
+    //         const params = this.props.paramsFilter.params
+    //         this.setState({
+    //             ...params
+    //         })
+    //     }
+    // }
 
     render() {
-        const { name, price, tag } = this.state
-        const { getRedirect, tags } = this.props
+        console.log(this.state, 'state')
+    
 
+        const { getRedirect, tags, paramsFilter } = this.props
+        const { name, price,venta, tag } = this.props.paramsFilter
+        console.log(paramsFilter, 'propos filters')
+
+   
         const handleChange = param => (e) => {
             const element = e.currentTarget
-            const data = this.state.params
-
-            if (param === 'maxPrice') {
-                this.setState({
-                    ...data,
-                    price: `0-${element.value}`
-                })
-            } else {
-                this.setState({
-                    ...data,
-                    [element.name]: element.value
-                })
-            }
-        }
-        const searchClick = async (e) => {
-            e.preventDefault()
-            console.log(this.state)
-            getRedirect(this.state)
-        }
-
-        const clearForm = () => {
             this.setState({
-                ...initialParams
-            })
+         
+                           [element.name]: element.value
+                        })
         }
+
+    
+
+        //const handleChange = param => (e) => {
+        //    const element = e.currentTarget
+        //     const data = this.state.params
+
+        //     if (param === 'maxPrice') {
+        //         this.setState({
+        //             ...data,
+        //             price: `0-${element.value}`
+        //         })
+        //     } else {
+        //         this.setState({
+        //             ...data,
+        //             [element.name]: element.value
+        //         })
+        //     }
+        // }
+
+
+        // const searchClick = async (e) => {
+        //     e.preventDefault()
+        //     console.log(this.state)
+        //     //getRedirect(this.state)
+        // }
+
+        // const clearForm = () => {
+        //     this.setState({
+        //         ...initialParams
+        //     })
+        // }
 
         return (
             <LoginConsumer>
@@ -79,13 +92,15 @@ class FilterClassifieds extends Component {
 
                                 <form
                                     className='w-100 pl-2'
-                                    onSubmit={searchClick}>
+                                    //onSubmit={searchClick}
+                                    >
                                     <div className='input-group'>
                                         <input type='text'
                                             className='form-control'
                                             name='name' id='name'
                                             value={name}
-                                            onChange={handleChange()} />
+                                            onChange={handleChange()} 
+                                            />
                                         <div className='input-group-append'>
                                             <button className='btn btn-outline-secondary' type='submit'>  <FontAwesomeIcon icon={faSearch} /> </button>
                                         </div>
@@ -107,21 +122,24 @@ class FilterClassifieds extends Component {
                                         <div className='modal-body'>
                                             <form
                                                 className='pr-4 pl-4'
-                                                onSubmit={searchClick}>
+                                                //onSubmit={searchClick}
+                                                >
                                                 <div className='form-group p-0'>
                                                     <label htmlFor='name'>What are you searching?</label>
                                                     <input type='text'
                                                         className='form-control'
                                                         name='name' id='name'
                                                         value={name}
-                                                        onChange={handleChange()} />
+                                                        onChange={handleChange()} 
+                                                        />
                                                 </div>
 
                                                 <div className='form-group p-0'>
                                                     <select className='custom-select'
                                                         name='tag'
                                                         value={tag}
-                                                        onChange={handleChange()}>
+                                                        onChange={handleChange()}
+                                                       >
                                                         <option value={''}>All tags</option>
                                                         {
 
@@ -140,7 +158,7 @@ class FilterClassifieds extends Component {
                                                         name='max-price'
                                                         type='number'
                                                         className='form-control'
-                                                        value={price ? price.slice(2) : ''}
+                                                        value={price}
                                                         id='max-price'
                                                         onChange={handleChange('maxPrice')}
                                                     />
@@ -174,7 +192,7 @@ class FilterClassifieds extends Component {
 
                                                 <div className='form-group d-flex justify-content-center  py-3'>
                                                     <button
-                                                        onClick={clearForm}
+                                                        //onClick={clearForm}
                                                         className='btn btn-danger rounded mx-2'>
                                                         Clear
                                                     </button>
@@ -192,7 +210,7 @@ class FilterClassifieds extends Component {
                         </div>
                     )
                 }}
-            </LoginConsumer >
+            </LoginConsumer>
         );
     }
 }

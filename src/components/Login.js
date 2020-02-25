@@ -9,9 +9,8 @@ function Login() {
     const [redirect, setRedirect] = useState()
 
     const renderRedirect = () => {
-        const all = 'name=pepe'
         if (redirect) {
-            return <Redirect to={`/listClassifieds/:${all}`} />
+            return <Redirect to={`/listClassifieds/:all`} />
         }
     }
 
@@ -84,7 +83,7 @@ function Login() {
                                         Haven´t any account?
                                     </p>
                                 </Link>
-                            </div >
+                            </div>
                         </div>
                     </div>
                 )

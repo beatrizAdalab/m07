@@ -22,48 +22,67 @@ class ListClassifieds extends Component {
                 price: '',
                 venta: '',
                 tag: ''
-            },
-            redirect: false
-
+            }
         };
     }
 
     componentDidMount() {
-        const url = this.props.match.url;
-        const params = urlRouter.extractParamsUrlSearch(url)
-        this.getStore(params)
+        const url = this.props.location.search;
+        const paramsUrl = urlRouter.searchStringToObject(url)
+        const paramsApi = urlRouter.extractParamsUrlSearch(paramsUrl)
+        this.getStore(paramsApi)
+        this.getParamsFilter(paramsApi)
     }
 
-    getStore = async (params) => {
+    getStore = async (paramsApi) => {
+        const store = this.state.store
+        const paramsFilter = this.state.paramsFilter
         this.setState({
+            ...paramsFilter,
             store: {
-                classifieds: await api.getClassifieds(params),
+                classifieds: await api.getClassifieds(paramsApi),
                 tags: await api.getTags(),
-                loaded: false
-            },
-            paramsFilter: {
-                params
-            },
-            redirect: true
-        }, () => (console.log(this.state)))
+            }
+        }, ()=>console.log(this.state))
     }
 
-    renderRedirect = () => {
-        if (this.state.redirect) {
-            console.log(this.state.paramsFilter.params, 'hshsh')
-            const queries = urlRouter.buildURLSearch(this.state.paramsFilter)
 
-            return <Redirect to={`/listClassifieds/:${queries}`} />
-        }
-    }
-
-    getRedirect = (params) => {
-        const data = this.state
+    getParamsFilter = (paramsApi) => {
+        const store = this.state.store
+        const paramsFilter = this.state.paramsFilter
         this.setState({
-            ...data,
-            paramsFilter: params,
-        }, () => { this.getStore(this.state.paramsFilter) })
+            ...store,
+            paramsFilter:{
+                ...paramsApi
+            },
+         }, ()=>console.log(this.state))
     }
+
+    // handleChange = (e) => {
+    //     const element = e.currentTarget
+    //     const data = this.state
+    //     this.setState({
+    //          ...data,
+    //         paramsFilter:{[element.name]: element.value}
+    //     },()=>console.log(this.state))
+    // }
+
+    // renderRedirect = () => {
+    //     if (this.state.redirect) {
+    //         console.log(this.state.paramsFilter.params, 'hshsh')
+    //         const queries = urlRouter.buildURLSearch(this.state.paramsFilter)
+
+    //         return <Redirect to={`/listClassifieds/:${queries}`} />
+    //     }
+    // }
+
+    // getRedirect = (params) => {
+    //     const data = this.state
+    //     this.setState({
+    //         ...data,
+    //         paramsFilter: params,
+    //     }, () => { this.getStore(this.state.paramsFilter) })
+    // }
 
 
     render() {
@@ -75,12 +94,13 @@ class ListClassifieds extends Component {
                     return (
 
                         < div className='' >
-                            {this.renderRedirect()}
-                            <div className='d-flex flex-column pb-3'>
-                                <FilterClassifieds tags={tags} paramsFilter={this.state.paramsFilter} getRedirect={this.getRedirect} />
-                                {/* <Link to='/newClassified'>
+                    
+                          {/* {this.renderRedirect()} */}
+                            <div className='d-flex flex-column pb-3'> 
+                                 {/* <FilterClassifieds tags={tags} paramsFilter={this.state.paramsFilter} handleChange={this.handleChange} />  */}
+                                <Link to='/newClassified'>
                                     <button type="button" className="btn btn-outline-success w-100 ">New classified</button>
-                                </Link> */}
+                                </Link> 
                             </div>
 
                             {classifieds.length > 0 ?
@@ -94,7 +114,6 @@ class ListClassifieds extends Component {
                                 : <div>Its seems that there is no classifieds... try again</div>
                             }
                         </div>
-
                     )
                 }}
             </LoginConsumer>

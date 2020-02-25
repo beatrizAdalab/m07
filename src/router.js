@@ -9,23 +9,44 @@ export const urlRouter = {
         return `${url}:${options}`.slice(0, -1)
     },
 
-    extractParamsUrlSearch: (url) => {
-        const queries = url.substring(18)
-        const arrayQueries = queries.split('&')
-        let params = {
-            name: '',
-            price: '',
-            venta: '',
-            tag: ''
+
+    searchStringToObject: (search) => {
+        return search.substr(1)
+            .split('&')
+            .filter(param => param)
+            .map(param => param.split('='))
+            .reduce( (accumulator, param) => {     
+                accumulator[param[0]] = param[1]
+                return accumulator
+            }, {}) 
+        },
+
+    extractParamsUrlSearch: (search) => {
+        let keys = ['name', 'price', 'venta', 'tag']
+
+        return keys.reduce((accumulator, key) => {
+
+            if (search.hasOwnProperty(key)) {
+                accumulator[key] = search[key]
+            }
+            return accumulator
+        } , {})
+    },
+
+    getParamsSearchApi: (paramsUrl) => {
+        console.log(paramsUrl)
+        const name = paramsUrl.name ? paramsUrl.name : ''
+        const venta = paramsUrl.venta ? paramsUrl.venta : ''
+        const tag = paramsUrl.tag ? paramsUrl.tag : ''
+        const price = paramsUrl.price ? `0-${paramsUrl.price}` : ''
+
+        const params = {
+            name,
+            venta,
+            tag,
+            price
         }
-        const keyParams = Object.keys(params)
-
-        arrayQueries.map(item => {
-            const key = item.split('=')[0]
-            const value = item.split('=')[1]
-            return keyParams.includes(key) ? params[key] = value : false
-        })
-
         return params
     }
+
 }

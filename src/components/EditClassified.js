@@ -101,7 +101,6 @@ class EditClassified extends Component {
 
                             {this.renderRedirect()}
 
-
                             <FormClassified
                                 paramsClassified={this.state.classified}
                                 handleChange={this.handleChange}

@@ -31,9 +31,9 @@ class ListClassifieds extends Component {
     componentDidMount() {
         const url = this.props.location.search
         const paramsUrl = urlRouter.searchStringToObject(url)
-        const objectFilter = urlRouter.buildObjectFilter(paramsUrl)
-        this.getStore(paramsUrl) // meto los anuncios en store
-        this.getParamsFilter(objectFilter) // el objeto para filtrar en store
+        const objectFilter = this._buildObjectFilter(paramsUrl)
+        this.getStore(objectFilter) 
+        this.getParamsFilter(objectFilter)
     }
 
     getStore = async (paramsApi) => {
@@ -107,6 +107,23 @@ console.log(this.state.paramsFilter, 'gagaga')
                 }}
             </LoginConsumer>
         )
+    }
+
+    _buildObjectFilter(search) {
+
+        let keys = ['name', 'price', 'venta', 'tag']
+
+        const ObjectKey = keys.reduce((accumulator, key) => {
+
+            if (search.hasOwnProperty(key)) {
+                accumulator[key] = search[key]
+            } else {
+                accumulator[key] = ''
+            }
+            return accumulator
+        }, {})
+
+        return ObjectKey
     }
 }
 

@@ -17,17 +17,16 @@ function Header() {
                             <h1 className='navbar-brand m-0'>FlowMark</h1>
                         </Link>
 
-                        {console.log(value.access.userName)}
-
-                        {value.access.userName}
-
-                        <Link to='/login'>
-                            <button
-                                className='btn btn-link'
-                            >
-                                <FontAwesomeIcon icon={faPowerOff} />
-                            </button>
-                        </Link>
+                        <div className='d-flex justify-content-center align-items-center'>
+                            {value.access.userName}
+                            <Link to='/login'>
+                                <button
+                                    className='btn btn-link'
+                                >
+                                    <FontAwesomeIcon icon={faPowerOff} />
+                                </button>
+                            </Link>
+                        </div>
                     </div>
                 </nav>)
             }}

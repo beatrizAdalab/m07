@@ -13,7 +13,7 @@ function Header() {
                 return (
                     <nav className='navbar navbar-light bg-white fixed-top'>
                     <div className='container'>
-                        <Link to='/listClassifieds/:?all'>
+                        <Link to='/listClassifieds/?all'>
                             <h1 className='navbar-brand m-0'>FlowMark</h1>
                         </Link>
 

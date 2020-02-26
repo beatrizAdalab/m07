@@ -49,6 +49,8 @@ export const api = {
 
     getClassifieds: async function (params = {}) {
         try {
+            params = this._extractParamsUrlSearch(params)
+            params.price = params.price ? `1-${params.price}` : ''
             const urlSearch = fullURL(`${url}anuncios`, params)
 
             const response = await fetch(urlSearch, {
@@ -118,6 +120,18 @@ export const api = {
             console.log("edit", data)
             return data
         } catch (error) { console.log(error) }
+    },
+
+    _extractParamsUrlSearch: (search) => {
+        let keys = ['name', 'price', 'venta', 'tag']
+
+        return keys.reduce((accumulator, key) => {
+
+            if (search.hasOwnProperty(key)) {
+                accumulator[key] = search[key]
+            }
+            return accumulator
+        }, {})
     },
 }
 

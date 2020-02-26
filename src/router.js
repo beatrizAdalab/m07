@@ -21,17 +21,7 @@ export const urlRouter = {
             }, {})
     },
 
-    extractParamsUrlSearch: (search) => {
-        let keys = ['name', 'price', 'venta', 'tag']
-
-        return keys.reduce((accumulator, key) => {
-
-            if (search.hasOwnProperty(key)) {
-                accumulator[key] = search[key]
-            }
-            return accumulator
-        }, {})
-    },
+   
 
 
     buildObjectFilter: (search) => {
@@ -47,9 +37,6 @@ export const urlRouter = {
             }
             return accumulator
         }, {})
-
-        const price = ObjectKey.price.slice(2)
-        ObjectKey.price = price
 
         return ObjectKey
     },

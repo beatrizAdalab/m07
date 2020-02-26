@@ -31,9 +31,8 @@ class ListClassifieds extends Component {
     componentDidMount() {
         const url = this.props.location.search
         const paramsUrl = urlRouter.searchStringToObject(url)
-        const paramsApi = urlRouter.extractParamsUrlSearch(paramsUrl)
-        const objectFilter = urlRouter.buildObjectFilter(paramsApi)
-        this.getStore(paramsApi) // meto los anuncios en store
+        const objectFilter = urlRouter.buildObjectFilter(paramsUrl)
+        this.getStore(paramsUrl) // meto los anuncios en store
         this.getParamsFilter(objectFilter) // el objeto para filtrar en store
     }
 
@@ -56,32 +55,22 @@ class ListClassifieds extends Component {
     }
 
     handleChange = (e) => {
-        const element = e.currentTarget
         const data = this.state.paramsFilter
+        const element = e.target
+        const name = element.name
+        const value = element.value
+
+
+
 
         this.setState({
-            paramsFilter: { ...data, [element.name]: element.value }
+            paramsFilter: { ...data, [name]: value }
         })
 
     }
 
-
-    // handleChange = (e) => {
-    //     const element = e.target
-    //     const data = this.state.classified
-    //     const name = element.name
-    //     const value =
-    //         name === 'tags' ?
-    //             element.value ? element.value.split(',') : [] :
-    //             element.value;
-
-    //     this.setState({
-    //         classified: { ...data, [name]: value }
-    //     })
-    // }
-
     render() {
-
+console.log(this.state.paramsFilter, 'gagaga')
         const { classifieds, tags, loaded } = this.state.store
         return (
             <LoginConsumer>
@@ -92,7 +81,6 @@ class ListClassifieds extends Component {
                             <div className='d-flex flex-column pb-3'>
                                 <FilterClassifieds
                                     tags={tags}
-                                    numClassifieds={classifieds.length}
                                     paramsFilter={this.state.paramsFilter}
                                     clearForm={this.clearForm}
                                     handleChange={this.handleChange}

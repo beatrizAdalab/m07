@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 class FilterClassifieds extends Component {
 
     render() {
-        const { handleChange, tags, numClassifieds } = this.props
+        const { handleChange, tags } = this.props
         const { name, price, venta, tag } = this.props.paramsFilter
 
         return (
@@ -46,7 +46,7 @@ class FilterClassifieds extends Component {
                                     <div className='modal-content'>
 
                                         <div className='modal-header'>
-                                            <h5 className='modal-title' id='modalFiltersTitle'>Filters <small className='text-primary pl-5'>  {numClassifieds} classifieds </small>  </h5>
+                                            <h5 className='modal-title' id='modalFiltersTitle'>Filters <small className='text-primary pl-5'>  classifieds </small>  </h5>
                                             <button type='button' className='close' data-dismiss='modal' aria-label='Close'>
                                                 <span aria-hidden='true'>&times;</span>
                                             </button>
@@ -87,7 +87,6 @@ class FilterClassifieds extends Component {
                                                 <div className='form-group p-0'>
                                                     <label htmlFor='price'>Maximum price: </label>
                                                     <input
-                                                        disabled
                                                         name='price'
                                                         type='number'
                                                         className='form-control'
@@ -104,7 +103,7 @@ class FilterClassifieds extends Component {
                                                             type='radio'
                                                             id='buy'
                                                             name='venta'
-                                                            value='buy'
+                                                            value='true'
                                                             className='custom-control-input'
                                                             onChange={handleChange}
                                                         />
@@ -117,7 +116,7 @@ class FilterClassifieds extends Component {
                                                             type='radio'
                                                             id='sell'
                                                             name='venta'
-                                                            value='sell'
+                                                            value='false'
                                                             className='custom-control-input'
                                                             onChange={handleChange}
                                                         />

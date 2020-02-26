@@ -1,20 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState , Component} from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { LoginConsumer } from '../context/LoginContext';
 
-function Login() {
+class Login extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            userName:'',
+            userPassword:'',
+            redirect:undefined
+        }
+    }
 
-    const [userName, setUserName] = useState('');
-    const [userPassword, setUserPassword] = useState('');
-    const [redirect, setRedirect] = useState()
+    handleChange = (e) => {
+        const element = e.target
+        const value= element.value
+        const name = element.name
 
-    const renderRedirect = () => {
-        if (redirect) {
+        this.setState({
+             [name]: value 
+        })
+    }
+
+
+    renderRedirect = () => {
+        if (this.state.redirect) {
             return <Redirect to={`/listClassifieds/:?all`} />
         }
     }
 
+render(){
+    const {userName, userPassword, redirect} = this.state
     return (
+       
         <LoginConsumer>
             {(value) => {
 
@@ -23,11 +41,11 @@ function Login() {
                     await value.loginUser(userName, userPassword)
                 }
 
-                setRedirect(value.access.login)
+                
 
                 return (
                     <div className='container-access pt-4'>
-                        {renderRedirect()}
+                    {this.renderRedirect()}
 
                         {value.access.error ?
                             <div className='alert alert-danger' role='alert'>
@@ -51,7 +69,7 @@ function Login() {
                                             id='userName'
                                             name='userName'
                                             value={userName}
-                                            onChange={e => setUserName(e.target.value)}
+                                            onChange={this.handleChange}
                                         />
                                     </div>
 
@@ -64,7 +82,7 @@ function Login() {
                                             id='userPassword'
                                             name='userPassword'
                                             value={userPassword}
-                                            onChange={e => setUserPassword(e.target.value)}
+                                            onChange={this.handleChange}
                                         />
                                     </div>
 
@@ -90,6 +108,9 @@ function Login() {
             }}
         </LoginConsumer>
     );
+
+}
+   
 }
 
 export default Login

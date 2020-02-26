@@ -6,6 +6,7 @@ import Header from './components/Header'
 import LoginContext from './context/LoginContext'
 import ListClassifieds from './components/ListClassifieds'
 import DetailClassifieds from './components/DetailClassified'
+import EditClassifieds from './components/EditClassified'
 import NewClassified from './components/NewClassified'
 
 
@@ -25,6 +26,7 @@ class App extends Component {
                 <Route path='/register' component={Register} />
                 <Route path='/listClassifieds/:queries' component={ListClassifieds} />
                 <Route path='/detailClassifieds/:id' component={DetailClassifieds} />
+                <Route path='/editClassifieds/:id' component={EditClassifieds} />
                 <Route path='/newClassified' component={NewClassified} />
                 <Redirect to='/login' />
               </Switch>

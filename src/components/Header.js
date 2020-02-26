@@ -10,11 +10,16 @@ function Header() {
     return (
         <LoginConsumer>
             {(value) => {
-                return (<nav className='navbar navbar-light bg-white fixed-top'>
+                return (
+                    <nav className='navbar navbar-light bg-white fixed-top'>
                     <div className='container'>
                         <Link to='/listClassifieds/:?all'>
                             <h1 className='navbar-brand m-0'>FlowMark</h1>
                         </Link>
+
+                        {console.log(value.access.userName)}
+
+                        {value.access.userName}
 
                         <Link to='/login'>
                             <button

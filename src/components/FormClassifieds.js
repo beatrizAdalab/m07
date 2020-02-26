@@ -10,34 +10,22 @@ class FormClassified extends Component {
                 price: 0,
                 description: '',
                 tags: [],
-                type: "buy",
+                type: '',
                 photo: '',
             }
         }
     }
 
-    handleChange = (e) => {
-        const element = e.currentTarget
-
-        this.setState({
-            classified: { [element.name]: element.value }
-        })
-    }
-
-    clickForm = (e) => {
-        e.preventDefault();
-        console.log(this.state)
-    }
-
     render() {
-        const { name, price, description, tags, type, photo } = this.state.classified
+        const { name, price, description, tags, type, photo } = this.props.paramsClassified
+        const {handleChange, clickForm, textButton}= this.props
         return (
             <LoginConsumer>
                 {(value) => {
                     return (
                         <form
                             className='pt-5 w-100'
-                            onSubmit={this.clickForm}>
+                            onSubmit={clickForm}>
 
                             <div className='form-group'>
                                 <label htmlFor='userName'>Name <small className='text-muted'> * </small> </label>
@@ -48,21 +36,12 @@ class FormClassified extends Component {
                                     id='name'
                                     name='name'
                                     value={name}
-                                    onChange={this.handleChange}
+                                    onChange={handleChange}
                                 />
                             </div>
-
+                            
                             <div className='form-group'>
-                                <label htmlFor='userName'>Description</label>
-                                <textarea
-                                    className='form-control'
-                                    value={description}
-                                    onChange={this.handleChange}
-                                />
-                            </div>
-
-                            <div className='form-group'>
-                                <label htmlFor='userName'>Price <small className='text-muted'> * </small> </label>
+                                <label htmlFor='price'>Price <small className='text-muted'> * </small> </label>
                                 <input
                                     className='form-control'
                                     required
@@ -70,16 +49,78 @@ class FormClassified extends Component {
                                     id='price'
                                     name='price'
                                     value={price}
-                                    onChange={this.handleChange}
+                                    onChange={handleChange}
                                 />
                             </div>
 
+                            <div className='form-group'>
+                                <label htmlFor='descirption'>Description</label>
+                                <textarea
+                                    name='description'
+                                    id='description'
+                                    className='form-control'
+                                    value={description}
+                                    onChange={handleChange}
+                                />
+                            </div>
+
+                            <div className='form-group'>
+                                <label htmlFor='photo'>Photo </label>
+                                <input
+                                    className='form-control'
+                                    type='text'
+                                    id='photo'
+                                    name='photo'
+                                    value={photo}
+                                    onChange={handleChange}
+                                />
+                            </div>
+
+                            <div className='form-group p-0'>
+                                <div className='custom-control custom-radio custom-control-inline'>
+                                    <input
+                                        checked={type==='buy'}
+                                        type='radio'
+                                        id='buy'
+                                        name='type'
+                                        value='buy'
+                                        className='custom-control-input'
+                                        onChange={handleChange}
+                                    />
+                                    <label className='custom-control-label' htmlFor='buy'>I want to buy</label>
+                                </div>
+
+                                <div className='custom-control custom-radio custom-control-inline'>
+                                    <input
+                                    checked={type==='sell'}
+                                        type='radio'
+                                        id='sell'
+                                        name='type'
+                                        value='sell'
+                                        className='custom-control-input'
+                                        onChange={handleChange}
+                                    />
+                                    <label className='custom-control-label' htmlFor='sell'>I want to sell</label>
+                                </div>
+                            </div>
+
+                            <div className='form-group'>
+                                <label htmlFor='tag'>Tag </label>
+                                <input
+                                    className='form-control'
+                                    type='text'
+                                    id='tag'
+                                    name='tags'
+                                    value={tags}
+                                    onChange={handleChange}
+                                />
+                            </div>
 
                             <div className='form-group d-flex justify-content-center pt-2'>
                                 <button
                                     className='btn btn-primary rounded'
                                     type='submit'>
-                                    New
+                                    {textButton}
                                     </button>
                             </div>
                         </form>
@@ -87,14 +128,7 @@ class FormClassified extends Component {
                     )
                 }}
             </LoginConsumer>)
-
     }
-
-
-
-
-
-
 
 }
 

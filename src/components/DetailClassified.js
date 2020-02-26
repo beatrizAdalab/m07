@@ -31,12 +31,13 @@ class DetailClassified extends Component {
                 {(value) => {
 
                     return (
+
                         <div>
-                            detalle
-                            id:{_id}
-                            name: {name}
-                            price: {price}
-                            description: {description}
+                            <h1>detalle</h1>
+                            <div>id:{_id}</div>
+                            <div>name: {name}</div>
+                            <div>price: {price}</div>
+                            <div>description: {description}</div>
                         </div>
                     )
                 }}
@@ -53,3 +54,16 @@ export default DetailClassified;
 
 
 
+{/* 
+                        {success === true ?
+                                <div className='alert alert-success' role='alert'>
+                                    Classified created
+                            </div> :
+                            success === false ?
+                                    < div className='alert alert-danger' role='alert'>
+                                        Ups..
+                            </div> :
+                                    < div className='alert invisible' role='alert'>
+                                        Ups.. {error}
+                            </div>
+                            } */}

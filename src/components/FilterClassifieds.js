@@ -6,21 +6,8 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
-const initialParams = {
-    name: 'hijo',
-    price: '',
-    venta: '',
-    tag: '',
-}
 
 class FilterClassifieds extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            ...initialParams
-        };
-    }
-
 
     render() {
         const { handleChange, tags, numClassifieds } = this.props
@@ -39,7 +26,6 @@ class FilterClassifieds extends Component {
 
                                 <form
                                     className='w-100 pl-2'
-                                //onSubmit={searchClick}
                                 >
                                     <div className='input-group'>
                                         <input type='text'
@@ -69,13 +55,13 @@ class FilterClassifieds extends Component {
                                         <div className='modal-body'>
                                             <form
                                                 className='pr-4 pl-4'
-                                            //onSubmit={searchClick}
                                             >
                                                 <div className='form-group p-0'>
                                                     <label htmlFor='name'>What are you searching?</label>
                                                     <input type='text'
                                                         className='form-control'
-                                                        name='name' id='name'
+                                                        name='name'
+                                                        id='name'
                                                         value={name}
                                                         onChange={handleChange}
                                                     />
@@ -89,7 +75,6 @@ class FilterClassifieds extends Component {
                                                     >
                                                         <option value={''}>All tags</option>
                                                         {
-
                                                             tags.map(item => {
                                                                 if (item) {
                                                                     return <option key={item} value={item}>{item}</option>
@@ -115,10 +100,11 @@ class FilterClassifieds extends Component {
                                                 <div className='form-group p-0'>
                                                     <div className='custom-control custom-radio custom-control-inline'>
                                                         <input
+                                                            checked={venta === 'true'}
                                                             type='radio'
                                                             id='buy'
                                                             name='venta'
-                                                            value={true}
+                                                            value='buy'
                                                             className='custom-control-input'
                                                             onChange={handleChange}
                                                         />
@@ -127,10 +113,11 @@ class FilterClassifieds extends Component {
 
                                                     <div className='custom-control custom-radio custom-control-inline'>
                                                         <input
+                                                            checked={venta === 'false'}
                                                             type='radio'
                                                             id='sell'
                                                             name='venta'
-                                                            value={false}
+                                                            value='sell'
                                                             className='custom-control-input'
                                                             onChange={handleChange}
                                                         />

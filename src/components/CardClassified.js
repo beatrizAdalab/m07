@@ -14,7 +14,7 @@ const CardClassified = ({ classified }) => {
 
                 return (<div
                     className='col-6 col-md-4 col-lg-3 mb-5'>
-                    <div className='card shadow bg-white rounded'>
+                    <div className='card shadow-sm bg-white rounded'>
                         <Link
                             to={`/detailClassifieds/${classified._id}`}
                             key={classified.id}
@@ -29,18 +29,13 @@ const CardClassified = ({ classified }) => {
                                 <p className='card-title'> {classified.name}</p>
                             </div>
                         </Link>
-                        {/* <Link
-                            to={{
-                                pathname: `/detailClassifieds/${classified.name}`,
-                                classified: classified
-                            }}
-                            onClick={() => { value.detailClassified(classified._id) }}
-                            key={classified.name}
+                        <Link
+                            to={`/editClassifieds/${classified._id}`}
                             className='text-decoration-none text-body'
                         >
                             <FontAwesomeIcon className='mr-2' icon={faPencilAlt} />
                             Edit
-                            </Link> */}
+                            </Link>
 
                     </div>
                 </div>

@@ -27,13 +27,14 @@ class ListClassifieds extends Component {
         };
     }
 
+
     componentDidMount() {
         const url = this.props.location.search
         const paramsUrl = urlRouter.searchStringToObject(url)
         const paramsApi = urlRouter.extractParamsUrlSearch(paramsUrl)
         const objectFilter = urlRouter.buildObjectFilter(paramsApi)
-        this.getStore(paramsApi)
-        this.getParamsFilter(objectFilter)
+        this.getStore(paramsApi) // meto los anuncios en store
+        this.getParamsFilter(objectFilter) // el objeto para filtrar en store
     }
 
     getStore = async (paramsApi) => {
@@ -51,7 +52,7 @@ class ListClassifieds extends Component {
             paramsFilter: {
                 ...paramsSearch
             }
-        })
+        }, ()=> console.log(this.state, 'paramsFileter'))
     }
 
     handleChange = (e) => {
@@ -63,6 +64,21 @@ class ListClassifieds extends Component {
         })
 
     }
+
+
+    // handleChange = (e) => {
+    //     const element = e.target
+    //     const data = this.state.classified
+    //     const name = element.name
+    //     const value =
+    //         name === 'tags' ?
+    //             element.value ? element.value.split(',') : [] :
+    //             element.value;
+
+    //     this.setState({
+    //         classified: { ...data, [name]: value }
+    //     })
+    // }
 
     render() {
 

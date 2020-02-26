@@ -33,11 +33,14 @@ main {
 }
 
 @media (min-width: 992px) {
+  .card{
+    min-height: 440px;
+  }
   .card-container-img {
-    height: 220px;
+    height: 260px;
   }
   .card-image {
-    height: 220px;
+    height: 260px;
     object-fit: cover;
   }
   .container-form-access {
